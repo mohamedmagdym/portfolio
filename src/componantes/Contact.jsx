@@ -1,30 +1,48 @@
 import React, { useRef } from "react";
+import { motion } from "framer-motion";
 import { FaWhatsapp, FaFacebookMessenger } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 
 export default function Contact() {
-    const form = useRef();
-    const sendEmail = (e) => {
-      e.preventDefault();
+  const form = useRef();
 
-      emailjs
-        .sendForm("service_pmk2xkp", "template_yack4sa", form.current, {
-          publicKey: "yKwSpgdJgtoRsEaQM",
-        })
-        .then(
-          () => {
-            e.target.reset()
-            toast.success("messsage is sended")
-            console.log("SUCCESS!");
-          },
-          (error) => {
-            toast.error("you have error")
-            console.log("FAILED...", error.text);
-          },
-        );
-    };
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm("service_pmk2xkp", "template_yack4sa", form.current, {
+        publicKey: "yKwSpgdJgtoRsEaQM",
+      })
+      .then(
+        () => {
+          e.target.reset();
+          toast.success("messsage is sended");
+        },
+        () => {
+          toast.error("you have error");
+        },
+      );
+  };
 
   const contactCards = [
     {
@@ -54,19 +72,34 @@ export default function Contact() {
     <section id="contact" className="py-16">
       <div className="w-[90%] md:w-[75%] mx-auto">
         {/* Title */}
-        <div className="text-center mb-10 space-y-1">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-center mb-10 space-y-1"
+        >
           <p className="text-white/50 text-xs tracking-widest">GET IN TOUCH</p>
           <h2 className="text-2xl md:text-3xl font-medium text-[#4db5ff]">
             Contact Me
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
           {/* Left Cards */}
-          <div className="space-y-4">
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
             {contactCards.map((c) => (
-              <div
+              <motion.div
                 key={c.id}
+                variants={fadeUp}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 200 }}
                 className="
                   rounded-xl bg-[#242a67]
                   px-5 py-6 text-center
@@ -92,12 +125,20 @@ export default function Contact() {
                 >
                   Send Message
                 </a>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Form */}
-          <form ref={form} onSubmit={sendEmail} className="space-y-12">
+          <motion.form
+            ref={form}
+            onSubmit={sendEmail}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="space-y-12"
+          >
             <input
               name="name"
               type="text"
@@ -140,7 +181,9 @@ export default function Contact() {
               "
             />
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 200 }}
               type="submit"
               className="
                 px-6 py-2.5 text-sm rounded-md
@@ -150,8 +193,8 @@ export default function Contact() {
               "
             >
               Send Message
-            </button>
-          </form>
+            </motion.button>
+          </motion.form>
         </div>
       </div>
     </section>

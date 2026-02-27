@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { FaPaintBrush, FaRocket, FaCode } from "react-icons/fa";
 
 export default function ServicesCards() {
@@ -23,22 +24,55 @@ export default function ServicesCards() {
     },
   ];
 
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const container = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
   return (
     <section className="py-16" id="services">
       <div className="w-[90%] md:w-[80%] mx-auto">
         {/* Title */}
-        <div className="text-center mb-20 space-y-3">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="text-center mb-20 space-y-3"
+        >
           <p className="text-white/60 tracking-wide">What I Offer</p>
           <h2 className="text-3xl md:text-5xl font-medium text-[#4db5ff]">
             Services
           </h2>
-        </div>
+        </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+        >
           {cards.map((item) => (
-            <div
+            <motion.div
               key={item.id}
+              variants={fadeUp}
+              whileHover={{ y: -12, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 200 }}
               className="
                 group relative
                 rounded-2xl bg-[#242a67]
@@ -97,9 +131,9 @@ export default function ServicesCards() {
                 bg-linear-to-tr from-[#4db5ff]/5 to-transparent
               "
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

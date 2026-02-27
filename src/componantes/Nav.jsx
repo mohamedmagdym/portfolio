@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   FaHome,
   FaUser,
@@ -38,7 +39,12 @@ export default function BottomNav() {
   }, []);
 
   return (
-    <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50">
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50"
+    >
       <div
         className="
         flex items-center gap-4 px-4 py-2
@@ -49,22 +55,34 @@ export default function BottomNav() {
         shadow-lg
       "
       >
-        {links.map((link) => (
-          <a
-            key={link.id}
-            href={`#${link.id}`}
-            onClick={() => setActive(link.id)}
-            className={`p-2 rounded-full transition duration-300
-              ${
-                active === link.id
-                  ? "bg-sky-500 text-white scale-110"
-                  : "text-white/70 hover:text-white"
-              }`}
-          >
-            {link.icon}
-          </a>
-        ))}
+        {links.map((link) => {
+          const isActive = active === link.id;
+
+          return (
+            <motion.a
+              key={link.id}
+              href={`#${link.id}`}
+              onClick={() => setActive(link.id)}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.95 }}
+              animate={isActive ? { scale: [1, 1.25, 1.1] } : { scale: 1 }}
+              transition={{
+                duration: 0.4,
+                type: "spring",
+                stiffness: 400,
+              }}
+              className={`p-2 rounded-full transition duration-300
+                ${
+                  isActive
+                    ? "bg-sky-500 text-white"
+                    : "text-white/70 hover:text-white"
+                }`}
+            >
+              {link.icon}
+            </motion.a>
+          );
+        })}
       </div>
-    </div>
+    </motion.div>
   );
 }
