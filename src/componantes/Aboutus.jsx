@@ -132,7 +132,8 @@ export default function Aboutus() {
           </motion.p>
 
           {/* Button */}
-          <motion.button
+          <motion.a
+            href="#contact"
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
@@ -145,7 +146,7 @@ export default function Aboutus() {
                    hover:shadow-lg w-fit"
           >
             Let's Talk
-          </motion.button>
+          </motion.a>
         </div>
       </div>
     </div>

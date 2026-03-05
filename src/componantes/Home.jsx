@@ -81,7 +81,8 @@ export default function Home() {
           Download CV
         </motion.a>
 
-        <motion.button
+        <motion.a
+          href="#contact"
           variants={fadeUp}
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 200 }}
@@ -91,7 +92,7 @@ export default function Home() {
           hover:shadow-lg"
         >
           Let's Talk
-        </motion.button>
+        </motion.a>
       </motion.div>
 
       {/* Image */}
