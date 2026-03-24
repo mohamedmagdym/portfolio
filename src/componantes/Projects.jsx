@@ -8,9 +8,17 @@ import IMG4 from "../assets/IMG4.png";
 import IMG5 from "../assets/IMG5.png";
 import IMG6 from "../assets/IMG6.png";
 import IMG7 from "../assets/IMG7.png";
+import IMG8 from "../assets/IMG8.png";
 
 export default function Projects() {
   const portfolioData = [
+    {
+      id: 8,
+      image: IMG8,
+      title: "Shop Vista",
+      github: "https://github.com/mohamedmagdym/shopVista",
+      demo: "https://shop-vista-virid.vercel.app/",
+    },
     {
       id: 7,
       image: IMG7,
@@ -21,14 +29,14 @@ export default function Projects() {
     {
       id: 1,
       image: IMG6,
-      title: "Connnecto",
+      title: "Connecto",
       github: "https://github.com/mohamedmagdym/connecto-web-site",
       demo: "https://connecto-web-site.vercel.app/",
     },
     {
       id: 2,
       image: IMG1,
-      title: "Giving cycle",
+      title: "Giving Cycle",
       github: "https://github.com/mohamedmagdym/sample-donation-web-site-",
       demo: "https://sample-donation-web-site.vercel.app/",
     },
@@ -42,7 +50,7 @@ export default function Projects() {
     {
       id: 4,
       image: IMG3,
-      title: "plants place",
+      title: "Plants Place",
       github: "https://github.com/mohamedmagdym/Plantes-Web-Site",
       demo: "https://plantes-web-site.vercel.app/",
     },
@@ -66,18 +74,18 @@ export default function Projects() {
     hidden: {},
     show: {
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
       },
     },
   };
 
   const reveal = {
-    hidden: { opacity: 0, y: 60 },
+    hidden: { opacity: 0, y: 50 },
     show: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.7,
         ease: [0.22, 1, 0.36, 1],
       },
     },
@@ -108,77 +116,59 @@ export default function Projects() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
         id="portfolio"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         {portfolioData.map((project) => (
-          <motion.div
+          <motion.article
             key={project.id}
             variants={reveal}
-            className="relative h-95 rounded-3xl overflow-hidden 
-                       group cursor-pointer"
+            whileHover={{ y: -8 }}
+            className="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
           >
-            {/* Image */}
-            <motion.img
-              src={project.image}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover"
-              initial={{ scale: 1.1 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              whileHover={{ scale: 1.08 }}
-            />
-
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/60 group-hover:bg-black/70 transition duration-500" />
-
-            <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
+            {/* Image Wrapper */}
+            <div className="relative h-[230px] overflow-hidden bg-[#0f172a]">
+              <motion.img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover object-top"
+                whileHover={{ scale: 1.06 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            </div>
 
             {/* Content */}
-            <motion.div
-              initial={{ y: 40, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              whileHover={{ y: -8 }}
-              className="relative z-10 h-full flex flex-col justify-end p-6 text-white"
-            >
-              <h3 className="text-2xl font-semibold mb-4 tracking-wide">
-                {project.title || "Coming Soon"}
+            <div className="p-5 md:p-6">
+              <h3 className="text-xl md:text-2xl font-semibold text-white mb-4">
+                {project.title}
               </h3>
 
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <motion.a
-                  whileHover={{ scale: 1.08 }}
+                  whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   href={project.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2 rounded-lg backdrop-blur-md 
-                             bg-white/20 border border-white/30
-                             hover:bg-white hover:text-black
-                             transition duration-300 text-sm font-medium"
+                  className="px-4 py-2 rounded-xl border border-white/20 bg-white/10 text-white hover:bg-white hover:text-black transition duration-300 text-sm font-medium"
                 >
                   GitHub
                 </motion.a>
 
                 <motion.a
-                  whileHover={{ scale: 1.08 }}
+                  whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
                   href={project.demo}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2 rounded-lg bg-yellow-500 
-                             hover:bg-yellow-600 
-                             transition duration-300 
-                             text-sm font-medium"
+                  className="px-4 py-2 rounded-xl bg-yellow-500 text-black hover:bg-yellow-400 transition duration-300 text-sm font-semibold"
                 >
                   Live Demo
                 </motion.a>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </motion.article>
         ))}
       </motion.div>
     </section>
