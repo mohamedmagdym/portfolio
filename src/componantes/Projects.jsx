@@ -9,9 +9,17 @@ import IMG5 from "../assets/IMG5.png";
 import IMG6 from "../assets/IMG6.png";
 import IMG7 from "../assets/IMG7.png";
 import IMG8 from "../assets/IMG8.png";
+import IMG9 from "../assets/IMG9.png";
 
 export default function Projects() {
   const portfolioData = [
+    {
+      id: 9,
+      image: IMG9,
+      title: "Shopistic",
+      github: "https://github.com/mohamedmagdym/Shopistic-E-Commerce",
+      demo: "https://shopistic-e-commerce.vercel.app/",
+    },
     {
       id: 8,
       image: IMG8,
